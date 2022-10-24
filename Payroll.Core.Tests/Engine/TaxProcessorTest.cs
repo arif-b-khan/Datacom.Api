@@ -93,7 +93,7 @@ namespace Payroll.Core.Tests.Engine
             };
 
             //Act
-            var salaryInfoActual = await Processor.Process(salaryInfo);
+            var salaryInfoActual = await Processor.ProcessAsync(salaryInfo);
             //assert
             Assert.IsNotNull(salaryInfoActual);
             Assert.AreEqual(75.75, salaryInfoActual.IncomeTax);

@@ -4,200 +4,141 @@
     "GlobalParams": [
       {
         "Name": "monthlyincome",
-        "Expression": "salary.annualincome / 12"
+        "Expression": "salary.annualsalary / 12"
       }
     ],
     "Rules": [
       {
-        "RuleName": "Deduct10Perc",
+        "RuleName": "Deduct10PercLessthan14k",
         "Rules": [
-          {
-            "RuleName": "GreaterThan14000",
-            "Enabled": true,
-            "ErrorType": "Warning",
-            "Expression": "(salary.annualincome - 14000.00) > 0",
-            "SuccessEvent": "101",
-            "Actions": {
-              "OnSuccess": {
-                "Name": "OutputExpression",
-                "Context": {
-                  "Expression": "14000.00 * 0.105"
-                }
-              }
-            }
-          },
           {
             "RuleName": "LessThan14000",
             "Enabled": true,
             "ErrorType": "Warning",
-            "Expression": "(salary.annualincome - 14000.00) < 0",
+            "Expression": "salary.annualsalary < 14000.00 AND (salary.annualsalary - 14000.00) < 0",
             "SuccessEvent": "101",
             "Actions": {
               "OnSuccess": {
                 "Name": "OutputExpression",
                 "Context": {
 
-                  "Expression": "salary.annualincome * 0.105"
+                  "Expression": "salary.annualsalary * 0.105"
                 }
               }
             }
           }
         ],
-        "Operator": "Or",
+        "Operator": "And",
         "ErrorMessage": "10.5 percent is not applicable",
         "Enabled": true,
         "ErrorType": "Warning",
-        "Expression": "salary.annualincome > 14000.00",
+        "Expression": "salary.annualsalary < 14000.00",
         "SuccessEvent": "10"
       },
       {
-        "RuleName": "Deduct17Perc",
+        "RuleName": "Deduct17PercAbove14K",
         "Rules": [
           {
-            "RuleName": "GreaterThan48000",
+            "RuleName": "GreaterThan14KAndLessThan48K",
             "Enabled": true,
-            "ErrorType": "Warning",
-            "Expression": "(salary.annualincome - 48000) > 0",
+            "ErrorType": "Error",
+            "Expression": "salary.annualsalary < 48000.00 AND (salary.annualsalary - 14000.00) > 0 AND (salary.annualsalary - 48000.00) < 0",
             "SuccessEvent": "171",
             "Actions": {
               "OnSuccess": {
                 "Name": "OutputExpression",
                 "Context": {
-                  "Expression": "34000.00 * 0.175"
-                }
-              }
-            }
-          },
-          {
-            "RuleName": "Between14000And48000",
-            "Enabled": true,
-            "ErrorType": "Warning",
-            "Expression": "(salary.annualincome - 48000) < 0",
-            "SuccessEvent": "172",
-            "Actions": {
-              "OnSuccess": {
-                "Name": "OutputExpression",
-                "Context": {
-                  "Expression": "(salary.annualincome - 14000.00) * 0.175"
+                  "Expression": "(1470.00 + ((salary.annualsalary - 14000.00) * 0.175))"
                 }
               }
             }
           }
         ],
-        "Operator": "Or",
+        "Operator": "And",
         "ErrorMessage": "17.5 percent is not applicable",
         "Enabled": true,
         "ErrorType": "Warning",
-        "Expression": "salary.annualincome > 14000.00 AND salary.annualincome < 48000.00",
+        "Expression": "salary.annualsalary < 48000.00",
         "SuccessEvent": "17"
       },
+
       {
-        "RuleName": "Deduct30Perc",
+        "RuleName": "Deduct30PercAbove48K",
         "Rules": [
           {
-            "RuleName": "Upto7K",
+            "RuleName": "GreaterThan48KAndGreaterThan70K",
             "Enabled": true,
-            "ErrorType": "Warning",
-            "Expression": "(salary.annualincome - 70000.00) > 0",
-            "SuccessEvent": "31",
+            "ErrorType": "Error",
+            "Expression": "salary.annualsalary < 70000.00 AND (salary.annualsalary - 48000.00) > 0 AND (salary.annualsalary - 70000.00) < 0",
+            "SuccessEvent": "301",
             "Actions": {
               "OnSuccess": {
                 "Name": "OutputExpression",
                 "Context": {
-                  "Expression": "(70000.00 - 48000.00) * 0.3"
-                }
-              }
-            }
-          },
-          {
-            "RuleName": "Between48000And70000",
-            "Enabled": true,
-            "ErrorType": "Warning",
-            "Expression": "(salary.annualincome - 70000.00) < 0",
-            "SuccessEvent": "32",
-            "Actions": {
-              "OnSuccess": {
-                "Name": "OutputExpression",
-                "Context": {
-                  "Expression": "(salary.annualincome - 48000.00) * 0.3"
+                  "Expression": "7420 + ((salary.annualsalary - 48000) * 0.30)"
                 }
               }
             }
           }
         ],
-        "Operator": "Or",
+        "Operator": "And",
         "ErrorMessage": "30 percent is not applicable",
         "Enabled": true,
         "ErrorType": "Warning",
-        "Expression": "salary.annualincome > 48000.00 AND salary.annualincome < 70000.00",
+        "Expression": "salary.annualsalary < 70000.00",
         "SuccessEvent": "30"
       },
       {
-        "RuleName": "Deduct33Perc",
+        "RuleName": "Deduct33PercAbove70K",
         "Rules": [
           {
-            "RuleName": "Upto180K",
+            "RuleName": "GreaterThan70KAndGreaterThan180K",
             "Enabled": true,
-            "ErrorType": "Warning",
-            "Expression": "(salary.annualincome - 180000.00) > 0",
+            "ErrorType": "Error",
+            "Expression": "salary.annualsalary < 180000.00 AND (salary.annualsalary - 70000.00) > 0 AND (salary.annualsalary - 180000.00) < 0",
             "SuccessEvent": "331",
             "Actions": {
               "OnSuccess": {
                 "Name": "OutputExpression",
                 "Context": {
-                  "Expression": "(180000.00 - 70000.00) * 0.33"
-                }
-              }
-            }
-          },
-          {
-            "RuleName": "Between70000And180000",
-            "Enabled": true,
-            "ErrorType": "Warning",
-            "Expression": "(salary.annualincome - 180000.00) < 0",
-            "SuccessEvent": "332",
-            "Actions": {
-              "OnSuccess": {
-                "Name": "OutputExpression",
-                "Context": {
-                  "Expression": "(salary.annualincome - 70000.00) * 0.33"
+                  "Expression": "14020 + ((salary.annualsalary - 70000) * 0.33)"
                 }
               }
             }
           }
         ],
-        "Operator": "Or",
+        "Operator": "And",
         "ErrorMessage": "33 percent is not applicable",
         "Enabled": true,
         "ErrorType": "Warning",
-        "Expression": "salary.annualincome > 70000.00 AND salary.annualincome < 180000.00",
+        "Expression": "salary.annualsalary < 180000.00",
         "SuccessEvent": "33"
       },
       {
-        "RuleName": "Deduct39Perc",
+        "RuleName": "Deduct39PercAbove180K",
         "Rules": [
           {
-            "RuleName": "Over180K",
+            "RuleName": "GreaterThan70KAndGreaterThan180K",
             "Enabled": true,
-            "ErrorType": "Warning",
-            "Expression": "(salary.annualincome - 180000.00) > 0",
-            "SuccessEvent": "391",
+            "ErrorType": "Error",
+            "Expression": "salary.annualsalary > 180000.00 AND (salary.annualsalary - 180000.00) > 0",
+            "SuccessEvent": "331",
             "Actions": {
               "OnSuccess": {
                 "Name": "OutputExpression",
                 "Context": {
-                  "Expression": "(salary.annualincome - 180000.00) * 0.39"
+                  "Expression": "50320.00 + ((salary.annualsalary - 180000) * 0.39)"
                 }
               }
             }
           }
         ],
-        "Operator": "Or",
-        "ErrorMessage": "33 percent is not applicable",
+        "Operator": "And",
+        "ErrorMessage": "39 percent is not applicable",
         "Enabled": true,
         "ErrorType": "Warning",
-        "Expression": "salary.annualincome > 70000.00 AND salary.annualincome < 180000.00",
-        "SuccessEvent": "33"
+        "Expression": "salary.annualsalary > 180000.00",
+        "SuccessEvent": "39"
       }
     ]
   }
