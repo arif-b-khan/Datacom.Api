@@ -1,0 +1,137 @@
+[
+  {
+    "WorkflowName": "TaxDeductionWorkflow",
+    "GlobalParams": [
+      {
+        "Name": "monthlyincome",
+        "Expression": "salary.annualincome / 12"
+      }
+    ],
+    "Rules": [
+      {
+        "RuleName": "Deduct10Perc",
+        "Rules": [
+          {
+            "RuleName": "GreaterThan14000",
+            "Enabled": true,
+            "ErrorType": "Warning",
+            "Expression": "(salary.annualincome - 14000.00) > 0",
+            "SuccessEvent": "101",
+            "Actions": {
+              "OnSuccess": {
+                "Name": "OutputExpression",
+                "Context": {
+                  "Expression": "14000.00 * 0.105"
+                }
+              }
+            }
+          },
+          {
+            "RuleName": "LessThan14000",
+            "Enabled": true,
+            "ErrorType": "Warning",
+            "Expression": "(salary.annualincome - 14000.00) < 0",
+            "SuccessEvent": "101",
+            "Actions": {
+              "OnSuccess": {
+                "Name": "OutputExpression",
+                "Context": {
+
+                  "Expression": "salary.annualincome * 0.105"
+                }
+              }
+            }
+          }
+        ],
+        "Operator": "Or",
+        "ErrorMessage": "10.5 percent is not applicable",
+        "Enabled": true,
+        "ErrorType": "Warning",
+        "Expression": "salary.annualincome > 14000.00",
+        "SuccessEvent": "10"
+      },
+      {
+        "RuleName": "Deduct17Perc",
+        "Rules": [
+          {
+            "RuleName": "GreaterThan48000",
+            "Enabled": true,
+            "ErrorType": "Warning",
+            "Expression": "(salary.annualincome - 48000) > 0",
+            "SuccessEvent": "171",
+            "Actions": {
+              "OnSuccess": {
+                "Name": "OutputExpression",
+                "Context": {
+                  "Expression": "34000.00 * 0.175"
+                }
+              }
+            }
+          },
+          {
+            "RuleName": "Between14000And48000",
+            "Enabled": true,
+            "ErrorType": "Warning",
+            "Expression": "(salary.annualincome - 48000) < 0",
+            "SuccessEvent": "172",
+            "Actions": {
+              "OnSuccess": {
+                "Name": "OutputExpression",
+                "Context": {
+                  "Expression": "(salary.annualincome - 14000.00) * 0.175"
+                }
+              }
+            }
+          }
+        ],
+        "Operator": "Or",
+        "ErrorMessage": "17.5 percent is not applicable",
+        "Enabled": true,
+        "ErrorType": "Warning",
+        "Expression": "salary.annualincome > 14000.00 AND salary.annualincome < 48000.00",
+        "SuccessEvent": "17"
+      },
+      {
+        "RuleName": "Deduct30Perc",
+        "Rules": [
+          {
+            "RuleName": "Upto7K",
+            "Enabled": true,
+            "ErrorType": "Warning",
+            "Expression": "(salary.annualincome - 70000.00) > 0",
+            "SuccessEvent": "31",
+            "Actions": {
+              "OnSuccess": {
+                "Name": "OutputExpression",
+                "Context": {
+                  "Expression": "(70000.00 - 48000.00) * 0.3"
+                }
+              }
+            }
+          },
+          {
+            "RuleName": "Between48000And70000",
+            "Enabled": true,
+            "ErrorType": "Warning",
+            "Expression": "(salary.annualincome - 70000.00) < 0",
+            "SuccessEvent": "32",
+            "Actions": {
+              "OnSuccess": {
+                "Name": "OutputExpression",
+                "Context": {
+                  "Expression": "(salary.annualincome - 48000.00) * 0.3"
+                }
+              }
+            }
+          }
+        ],
+        "Operator": "Or",
+        "ErrorMessage": "30 percent is not applicable",
+        "Enabled": true,
+        "ErrorType": "Warning",
+        "Expression": "salary.annualincome > 48000.00 AND salary.annualincome < 70000.00",
+        "SuccessEvent": "30"
+      }
+    ]
+  }
+] 
