@@ -5,6 +5,10 @@ VisualStudioVersion = 17.1.32407.343
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payroll", "Payroll.csproj", "{B001D8CA-B583-4EAF-AA05-FAF82B649B67}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payroll.Core", "..\Payroll.Core\Payroll.Core.csproj", "{6B20B621-8306-434A-9706-6F0E775E73E7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payroll.Domain", "..\Payroll.Domain\Payroll.Domain.csproj", "{D6C11284-4350-4DE2-A49B-89059B529761}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{B001D8CA-B583-4EAF-AA05-FAF82B649B67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B001D8CA-B583-4EAF-AA05-FAF82B649B67}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B001D8CA-B583-4EAF-AA05-FAF82B649B67}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B20B621-8306-434A-9706-6F0E775E73E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B20B621-8306-434A-9706-6F0E775E73E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B20B621-8306-434A-9706-6F0E775E73E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B20B621-8306-434A-9706-6F0E775E73E7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D6C11284-4350-4DE2-A49B-89059B529761}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D6C11284-4350-4DE2-A49B-89059B529761}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D6C11284-4350-4DE2-A49B-89059B529761}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D6C11284-4350-4DE2-A49B-89059B529761}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

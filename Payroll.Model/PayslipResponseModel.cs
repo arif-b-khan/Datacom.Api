@@ -1,4 +1,4 @@
-﻿namespace Payroll.Models
+﻿namespace Payroll.Model
 {
     public class PayslipResponseModel
     {

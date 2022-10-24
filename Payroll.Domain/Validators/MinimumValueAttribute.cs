@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Payroll.Validators
+namespace Payroll.Domain.Validators
 {
     [AttributeUsage(AttributeTargets.Property | AttributeTargets.Field, AllowMultiple = false)] 
     public class MinimumValueAttribute : ValidationAttribute
