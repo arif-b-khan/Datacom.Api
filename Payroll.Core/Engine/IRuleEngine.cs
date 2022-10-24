@@ -2,7 +2,7 @@
 
 namespace Payroll.Core.Engine
 {
-    internal interface IRuleEngine
+    public interface IRuleEngine
     {
         ValueTask<List<RuleResultTree>> ExecuteRulesAsync(string ruleName, params RuleParameter[] ruleParam);
     }
