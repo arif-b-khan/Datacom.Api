@@ -24,18 +24,24 @@ namespace Payroll.Core
             _taxSettings = taxSettings.Value ?? throw new ArgumentNullException(nameof(taxSettings));
         }
 
-        public async Task<SalaryInfo> Process(SalaryInfo salary)
+        public async Task<SalaryInfo> ProcessAsync(SalaryInfo salary)
         {
             dynamic inputObj = new ExpandoObject();
             inputObj.annualsalary = salary.AnnualSalary;
             var ruleParam = new RuleParameter(_taxSettings.InputName, inputObj);
             var workflowResult = await _ruleEngine.ExecuteRulesAsync(_taxSettings.WorkflowName, ruleParam);
             var output = (SalaryInfo)salary.Clone();
-            output.IncomeTax = GetIncomeTax(workflowResult, (int)salary.Month);
+            output.IncomeTax = GetIncomeTax(workflowResult);
             return output;
         }
 
-        private decimal GetIncomeTax(List<RuleResultTree> workflowResult, int month)
+        /// <summary>
+        /// Calculates the income tax
+        /// </summary>
+        /// <param name="workflowResult"><seealso cref="List{RuleResultTree}<"/> list of rule result</param>
+        /// <returns>Income tax for e.g 101.10</returns>
+        /// <exception cref="ArgumentNullException">Workflow cannot be null</exception>
+        private decimal GetIncomeTax(List<RuleResultTree> workflowResult)
         {
             if(workflowResult == null)
                 throw new ArgumentNullException(nameof(workflowResult));    
@@ -44,14 +50,17 @@ namespace Payroll.Core
             foreach (var result in workflowResult)
             {
                 Console.WriteLine($"Rule name: {result.Rule.RuleName}, IsSuccess: {result.IsSuccess}");
-                foreach (var childResult in result.ChildResults)
+                if(result.ChildResults != null)
                 {
-                    Console.WriteLine($"Rule name: {childResult.Rule.RuleName}, IsSuccess: {childResult.IsSuccess}" +
-                        $", Output: {childResult.ActionResult.Output}");
-                    taxResult += Convert.ToDecimal(childResult.ActionResult.Output);
+                    foreach (var childResult in result.ChildResults)
+                    {
+                        Console.WriteLine($"Rule name: {childResult.Rule.RuleName}, IsSuccess: {childResult.IsSuccess}" +
+                            $", Output: {childResult.ActionResult.Output}");
+                        taxResult += Convert.ToDecimal(childResult.ActionResult.Output);
+                    }
                 }
             }
-            return Math.Round(taxResult / month, 2);
+            return Math.Round(taxResult / 12, 2);
         }
     }
 }
