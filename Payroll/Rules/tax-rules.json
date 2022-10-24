@@ -131,6 +131,73 @@
         "ErrorType": "Warning",
         "Expression": "salary.annualincome > 48000.00 AND salary.annualincome < 70000.00",
         "SuccessEvent": "30"
+      },
+      {
+        "RuleName": "Deduct33Perc",
+        "Rules": [
+          {
+            "RuleName": "Upto180K",
+            "Enabled": true,
+            "ErrorType": "Warning",
+            "Expression": "(salary.annualincome - 180000.00) > 0",
+            "SuccessEvent": "331",
+            "Actions": {
+              "OnSuccess": {
+                "Name": "OutputExpression",
+                "Context": {
+                  "Expression": "(180000.00 - 70000.00) * 0.33"
+                }
+              }
+            }
+          },
+          {
+            "RuleName": "Between70000And180000",
+            "Enabled": true,
+            "ErrorType": "Warning",
+            "Expression": "(salary.annualincome - 180000.00) < 0",
+            "SuccessEvent": "332",
+            "Actions": {
+              "OnSuccess": {
+                "Name": "OutputExpression",
+                "Context": {
+                  "Expression": "(salary.annualincome - 70000.00) * 0.33"
+                }
+              }
+            }
+          }
+        ],
+        "Operator": "Or",
+        "ErrorMessage": "33 percent is not applicable",
+        "Enabled": true,
+        "ErrorType": "Warning",
+        "Expression": "salary.annualincome > 70000.00 AND salary.annualincome < 180000.00",
+        "SuccessEvent": "33"
+      },
+      {
+        "RuleName": "Deduct39Perc",
+        "Rules": [
+          {
+            "RuleName": "Over180K",
+            "Enabled": true,
+            "ErrorType": "Warning",
+            "Expression": "(salary.annualincome - 180000.00) > 0",
+            "SuccessEvent": "391",
+            "Actions": {
+              "OnSuccess": {
+                "Name": "OutputExpression",
+                "Context": {
+                  "Expression": "(salary.annualincome - 180000.00) * 0.39"
+                }
+              }
+            }
+          }
+        ],
+        "Operator": "Or",
+        "ErrorMessage": "33 percent is not applicable",
+        "Enabled": true,
+        "ErrorType": "Warning",
+        "Expression": "salary.annualincome > 70000.00 AND salary.annualincome < 180000.00",
+        "SuccessEvent": "33"
       }
     ]
   }
