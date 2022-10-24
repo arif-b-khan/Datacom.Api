@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Payroll.Core.Engine
 {
-    public class RuleEngine : IRuleEngine
+    internal class RuleEngine : IRuleEngine
     {
         private string _ruleFile;
         private RulesEngine.RulesEngine _ruleEngine;
@@ -17,21 +17,29 @@ namespace Payroll.Core.Engine
         public RuleEngine(string ruleFile)
         {
             _ruleFile = ruleFile ?? throw new ArgumentNullException(nameof(ruleFile));
-            _ = CreateRuleEngine();
+            _ruleEngine = CreateRuleEngine().GetAwaiter().GetResult();
         }
 
-        private async Task CreateRuleEngine()
+        protected virtual async Task<RulesEngine.RulesEngine> CreateRuleEngine()
         {
-            var executingDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var workflowStr = await File.ReadAllTextAsync(Path.GetFullPath(executingDir + $"//{_ruleFile}"));
-            var serializationOptions = new System.Text.Json.JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } };
-            var workflowViaTextJson = System.Text.Json.JsonSerializer.Deserialize<Workflow[]>(workflowStr, serializationOptions);
-            _ruleEngine = new RulesEngine.RulesEngine(workflowViaTextJson, new ReSettings());
+            try
+            {
+                var executingDir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+                var workflowStr = await File.ReadAllTextAsync(Path.GetFullPath(Path.Combine(executingDir, "Rules", _ruleFile)));
+                var serializationOptions = new System.Text.Json.JsonSerializerOptions { Converters = { new JsonStringEnumConverter() } };
+                var workflowViaTextJson = System.Text.Json.JsonSerializer.Deserialize<Workflow[]>(workflowStr, serializationOptions);
+                return new RulesEngine.RulesEngine(workflowViaTextJson, new ReSettings());
+            }
+            catch (FileNotFoundException fileNFEx)
+            {
+                System.Diagnostics.Debug.WriteLine($"Message: {fileNFEx.Message}");
+                throw;
+            }
         }
 
-        public async ValueTask<List<RuleResultTree>> ExecuteRulesAsync(string ruleName, params RuleParameter[] ruleParam)
+        public async ValueTask<List<RuleResultTree>> ExecuteRulesAsync(string workflowName, params RuleParameter[] ruleParam)
         {
-            return await _ruleEngine.ExecuteAllRulesAsync(ruleName, ruleParam);
+            return await _ruleEngine.ExecuteAllRulesAsync(workflowName, ruleParam);
         }
     }
 }
