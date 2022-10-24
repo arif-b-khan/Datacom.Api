@@ -15,15 +15,8 @@ namespace Payroll.Controllers
             _logger = logger;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]PayslipRequest request)
-        {
-            _logger.LogInformation(request.ToString());
-            return Ok(request);
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]PayslipRequest request)
+        public async Task<IActionResult> Post([FromBody]List<PayslipRequest> request)
         {
             _logger.LogInformation(request.ToString());
             return Ok(request);
