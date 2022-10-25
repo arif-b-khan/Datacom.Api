@@ -27,7 +27,7 @@ namespace Payroll.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromBody] List<PayslipRequest> request)
         {
-            _logger.LogInformation(request.ToString());
+
             var salaryInfoList = _mapper.Map<List<SalaryInfo>>(request);
             var salaryResponseList = new List<PayslipResponse>();
             foreach (var sal in salaryInfoList)
@@ -35,6 +35,7 @@ namespace Payroll.Controllers
                 SalaryInfo salaryResponse = await _taxProcessor.ProcessAsync(sal);
                 PayslipResponse payResponse = _mapper.Map<PayslipResponse>(salaryResponse);
                 salaryResponseList.Add(payResponse);
+                _logger.LogInformation(payResponse.ToString());
             }
             return Ok(salaryResponseList);
         }

@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payroll.Core", "..\Payroll.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payroll.Domain", "..\Payroll.Domain\Payroll.Domain.csproj", "{D6C11284-4350-4DE2-A49B-89059B529761}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payroll.Core.Tests", "..\Payroll.Core.Tests\Payroll.Core.Tests.csproj", "{92436F35-70C1-42CB-BA04-EA133F62F0FB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payroll.Core.Tests", "..\Payroll.Core.Tests\Payroll.Core.Tests.csproj", "{92436F35-70C1-42CB-BA04-EA133F62F0FB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payroll.Tests", "..\Payroll.Tests\Payroll.Tests.csproj", "{B847A8F1-1F5F-4D8B-A78E-C4F724A6A65A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{92436F35-70C1-42CB-BA04-EA133F62F0FB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92436F35-70C1-42CB-BA04-EA133F62F0FB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92436F35-70C1-42CB-BA04-EA133F62F0FB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B847A8F1-1F5F-4D8B-A78E-C4F724A6A65A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B847A8F1-1F5F-4D8B-A78E-C4F724A6A65A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B847A8F1-1F5F-4D8B-A78E-C4F724A6A65A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B847A8F1-1F5F-4D8B-A78E-C4F724A6A65A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

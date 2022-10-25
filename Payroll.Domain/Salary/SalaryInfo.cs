@@ -26,7 +26,11 @@ namespace Payroll.Domain.Salary
         public decimal GrossIncome { 
             get
             {
-                return AnnualSalary / (int)Month; 
+                if((int)Month != 0)
+                {
+                    return AnnualSalary / (int)Month;
+                }
+                return 0;
             }
         }
         private decimal _incomeTax;
