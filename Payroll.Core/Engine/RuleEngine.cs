@@ -1,4 +1,6 @@
-﻿using RulesEngine.Models;
+﻿using Microsoft.Extensions.Options;
+using Payroll.Domain.AppSetting;
+using RulesEngine.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Payroll.Core.Engine
 {
-    internal class RuleEngine : IRuleEngine
+    public class RuleEngine : IRuleEngine
     {
-        private string _ruleFile;
+        private string? _ruleFile;
         private RulesEngine.RulesEngine _ruleEngine;
 
-        public RuleEngine(string ruleFile)
+        public RuleEngine(IOptions<TaxSettingOptions> taxSettings)
         {
-            _ruleFile = ruleFile ?? throw new ArgumentNullException(nameof(ruleFile));
+            _ruleFile = taxSettings.Value.RuleFileName ?? throw new ArgumentNullException(nameof(taxSettings.Value.RuleFileName));
             _ruleEngine = CreateRuleEngine().GetAwaiter().GetResult();
         }
 
