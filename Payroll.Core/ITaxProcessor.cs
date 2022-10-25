@@ -2,7 +2,7 @@
 
 namespace Payroll.Core
 {
-    internal interface ITaxProcessor
+    public interface ITaxProcessor
     {
         Task<SalaryInfo> ProcessAsync(SalaryInfo salary);
     }

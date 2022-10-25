@@ -30,13 +30,14 @@ namespace Payroll.Core.Tests
         [SetUp]
         public void SetUp()
         {
-            _ruleEngine = new RuleEngine("tax-rules.json");
+
             MockTaxSettingOptions.Setup(s => s.Value).Returns(() => new TaxSettingOptions()
             {
                 InputName = "salary",
-                WorkflowName = "TaxDeductionWorkflow"
+                WorkflowName = "TaxDeductionWorkflow", 
+                RuleFileName= "tax-rules.json"
             });
-
+            _ruleEngine = new RuleEngine(MockTaxSettingOptions.Object);
         }
 
         [TearDown]

@@ -14,10 +14,11 @@ using System.Threading.Tasks;
 [assembly: InternalsVisibleTo("Payroll.Core.Tests")]
 namespace Payroll.Core
 {
-    internal class TaxProcessor : ITaxProcessor
+    public class TaxProcessor : ITaxProcessor
     {
         private readonly IRuleEngine? _ruleEngine;
         private readonly TaxSettingOptions _taxSettings;
+
         public TaxProcessor(IRuleEngine? ruleEngine, IOptions<TaxSettingOptions> taxSettings)
         {
             _ruleEngine = ruleEngine ?? throw new ArgumentNullException(nameof(ruleEngine));

@@ -11,6 +11,6 @@ namespace Payroll.Domain.AppSetting
         public const string TaxSettings = "TaxSettings";
         public string? InputName { get; set; }
         public string? WorkflowName { get; set; }
-
+        public string? RuleFileName { get; set; }
     }
 }
