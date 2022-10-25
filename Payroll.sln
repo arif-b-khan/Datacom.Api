@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payroll.Domain", "..\Payrol
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payroll.Core.Tests", "..\Payroll.Core.Tests\Payroll.Core.Tests.csproj", "{92436F35-70C1-42CB-BA04-EA133F62F0FB}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Payroll.Tests", "..\Payroll.Tests\Payroll.Tests.csproj", "{B847A8F1-1F5F-4D8B-A78E-C4F724A6A65A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Payroll.Tests", "..\Payroll.Tests\Payroll.Tests.csproj", "{B847A8F1-1F5F-4D8B-A78E-C4F724A6A65A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
