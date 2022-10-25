@@ -23,6 +23,8 @@ namespace Payroll.Controllers
         }
 
         [HttpPost]
+        [ProducesResponseType(typeof(List<PayslipResponse>), 200)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Post([FromBody] List<PayslipRequest> request)
         {
             _logger.LogInformation(request.ToString());
